@@ -1,0 +1,217 @@
+        <style>
+          @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
+          }
+          @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+          }
+          .suspended-main {
+            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+          }
+          .glow-icon {
+            animation: glow 3s ease-in-out infinite;
+          }
+        </style>
+        
+        <!-- Animated Grid Background -->
+        <div style="
+          position: absolute;
+          inset: 0;
+          background-image: 
+            linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+          background-size: 50px 50px;
+          opacity: 0.3;
+        "></div>
+        
+        <!-- Main Card -->
+        <div class="suspended-main" style="
+          background: linear-gradient(145deg, #1e293b, #0f172a);
+          border: 1px solid rgba(59, 130, 246, 0.2);
+          border-radius: 20px;
+          max-width: 520px;
+          width: 100%;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        ">
+          <!-- Top Glow Bar -->
+          <div style="
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6);
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+          "></div>
+          
+          <!-- Content Container -->
+          <div style="padding: 35px 30px 30px;">
+            
+            <!-- Icon & Title Section -->
+            <div style="text-align: center; margin-bottom: 25px;">
+              <div class="glow-icon" style="
+                width: 70px;
+                height: 70px;
+                background: linear-gradient(135deg, #ef4444, #dc2626);
+                border-radius: 50%;
+                margin: 0 auto 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 35px;
+                position: relative;
+              ">
+                <div style="
+                  position: absolute;
+                  inset: -3px;
+                  background: linear-gradient(135deg, #ef4444, #dc2626);
+                  border-radius: 50%;
+                  opacity: 0.3;
+                  filter: blur(8px);
+                "></div>
+                <span style="position: relative; z-index: 1;">🚫</span>
+              </div>
+              
+              <h1 style="
+                font-size: 26px;
+                font-weight: 700;
+                color: #ffffff;
+                margin: 0 0 8px;
+                letter-spacing: -0.5px;
+              ">Access Suspended</h1>
+              
+              <p style="
+                font-size: 14px;
+                color: #94a3b8;
+                margin: 0;
+                line-height: 1.5;
+              ">${message || 'This website is temporarily unavailable'}</p>
+            </div>
+            
+            <!-- Reason Alert Box -->
+            ${reason ? `
+              <div style="
+                background: rgba(239, 68, 68, 0.1);
+                border: 1px solid rgba(239, 68, 68, 0.3);
+                border-radius: 12px;
+                padding: 14px 16px;
+                margin-bottom: 22px;
+                display: flex;
+                align-items: start;
+                gap: 12px;
+              ">
+                <span style="font-size: 20px; flex-shrink: 0; line-height: 1;">⚠️</span>
+                <div style="flex: 1; min-width: 0;">
+                  <div style="
+                    color: #fca5a5;
+                    font-size: 12px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    margin-bottom: 4px;
+                  ">Reason</div>
+                  <div style="
+                    color: #fecaca;
+                    font-size: 13px;
+                    line-height: 1.5;
+                  ">${getReasonText(reason)}</div>
+                </div>
+              </div>
+            ` : ''}
+            
+            <!-- Action Buttons -->
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px;">
+              ${paymentUrl ? `
+                <a href="${paymentUrl}" style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 8px;
+                  background: linear-gradient(135deg, #3b82f6, #2563eb);
+                  color: white;
+                  padding: 14px 24px;
+                  border-radius: 10px;
+                  text-decoration: none;
+                  font-weight: 600;
+                  font-size: 14px;
+                  transition: all 0.2s;
+                  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+                " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(59, 130, 246, 0.5)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 14px rgba(59, 130, 246, 0.4)';">
+                  <span style="font-size: 18px;">💳</span>
+                  <span>Complete Payment</span>
+                </a>
+              ` : ''}
+              
+              <a href="mailto:support@example.com" style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                background: rgba(59, 130, 246, 0.1);
+                color: #60a5fa;
+                padding: 12px 24px;
+                border-radius: 10px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 14px;
+                transition: all 0.2s;
+                border: 1px solid rgba(59, 130, 246, 0.2);
+              " onmouseover="this.style.background='rgba(59, 130, 246, 0.15)'; this.style.borderColor='rgba(59, 130, 246, 0.3)';" onmouseout="this.style.background='rgba(59, 130, 246, 0.1)'; this.style.borderColor='rgba(59, 130, 246, 0.2)';">
+                <span style="font-size: 16px;">📧</span>
+                <span>Contact Support</span>
+              </a>
+            </div>
+            
+            <!-- Status Footer -->
+            <div style="
+              background: rgba(15, 23, 42, 0.5);
+              border: 1px solid rgba(71, 85, 105, 0.3);
+              border-radius: 10px;
+              padding: 12px 16px;
+            ">
+              <div style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 12px;
+              ">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <div style="
+                    width: 8px;
+                    height: 8px;
+                    background: #ef4444;
+                    border-radius: 50%;
+                    box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+                  "></div>
+                  <span style="color: #cbd5e1; font-size: 12px; font-weight: 500;">
+                    Status Suspended
+                  </span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="font-size: 14px;">🔄</span>
+                  <span style="color: #94a3b8; font-size: 11px;">
+                    Auto-checking...
+                  </span>
+                </div>
+              </div>
+              <div style="
+                margin-top: 10px;
+                padding-top: 10px;
+                border-top: 1px solid rgba(71, 85, 105, 0.3);
+                color: #64748b;
+                font-size: 11px;
+                text-align: center;
+              ">
+                Page will auto-restore when resolved • ID: ${CONFIG.SITE_ID.slice(0, 8)}...
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>

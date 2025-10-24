@@ -1,0 +1,20 @@
+{
+  "name": "panaglo-frontend",
+  "version": "1.0.0",
+  "description": "Panaglo Frontend React App",
+  "engines": {
+    "node": "18.x",
+    "npm": ">=9.0.0"
+  },
+  "scripts": {
+    "start": "vite preview --host 0.0.0.0 --port $PORT",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "buildpacks": {
+    "nginx": {
+      "version": "1.25.x"
+    }
+  }
+}

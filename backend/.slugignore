@@ -1,0 +1,21 @@
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+
+# Dependencies
+node_modules/
+
+# Test files
+__tests__/
+*.test.js
+
+# Development files
+nodemon.json
+.editorconfig
+
+# Git
+.git/
+.gitignore

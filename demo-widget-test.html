@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo Website - Widget Integration Test</title>
+  
+  <!-- 🔥 ADD YOUR WIDGET HERE 🔥 -->
+  <!-- Replace YOUR_SITE_ID with your actual Site ID from the Sites page -->
+<script src="http://localhost:5000/widget.js" data-api-key="04084a7f1bd832f625fde665d293051d7314a2718a4c714e6296d3fba95d7590"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    
+    .header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .header p {
+      font-size: 1.25rem;
+      opacity: 0.9;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .card h2 {
+      color: #667eea;
+      margin-bottom: 1rem;
+    }
+    
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: #f0f4f8;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+    
+    .status-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #10b981;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .feature {
+      padding: 1.5rem;
+      background: #f9fafb;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+    
+    .feature h3 {
+      color: #667eea;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .code-block {
+      background: #1f2937;
+      color: #10b981;
+      padding: 1.5rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      margin: 1rem 0;
+    }
+    
+    .alert {
+      padding: 1rem;
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+    
+    .footer {
+      background: #1f2937;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <h1>🚀 Demo Website</h1>
+    <p>Testing Website Monitoring Widget Integration</p>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    
+    <!-- Widget Status -->
+    <div class="card">
+      <h2>Widget Status</h2>
+      <div class="status-indicator">
+        <div class="status-dot"></div>
+        <div>
+          <strong>Widget Active</strong>
+          <p>Monitoring widget is running. Status checks every 20 seconds.</p>
+        </div>
+      </div>
+      
+      <div class="alert">
+        <strong>⚠️ Important:</strong> Make sure to replace <code>YOUR_SITE_ID</code> in the widget script with your actual Site ID!
+      </div>
+    </div>
+
+    <!-- How to Test -->
+    <div class="card">
+      <h2>How to Test the Widget</h2>
+      
+      <h3 style="margin-top: 1.5rem;">1️⃣ Setup</h3>
+      <p>Open the <code>&lt;head&gt;</code> section of this HTML file and replace <code>YOUR_SITE_ID</code> with your actual Site ID from the admin panel.</p>
+      
+      <div class="code-block">
+&lt;script src="http://localhost:5000/widget.js" 
+        data-site-id="<span style="color: #f59e0b;">68f0b8ceda3ed23340f4c563</span>"&gt;
+&lt;/script&gt;
+      </div>
+
+      <h3 style="margin-top: 1.5rem;">2️⃣ Test Suspension</h3>
+      <ol style="margin-left: 2rem; margin-top: 0.5rem;">
+        <li>Open admin panel</li>
+        <li>Go to Sites page</li>
+        <li>Click "Suspend" on your test site</li>
+        <li>Wait 20 seconds (or refresh this page)</li>
+        <li>You should see a <strong>fullscreen suspension page</strong> 🚫</li>
+      </ol>
+
+      <h3 style="margin-top: 1.5rem;">3️⃣ Test Reactivation</h3>
+      <ol style="margin-left: 2rem; margin-top: 0.5rem;">
+        <li>Go back to admin panel</li>
+        <li>Click "Reactivate" on your site</li>
+        <li>Wait 20 seconds (or refresh this page)</li>
+        <li>This normal page should reappear ✅</li>
+      </ol>
+
+      <h3 style="margin-top: 1.5rem;">4️⃣ Test Payment Warning (Owner Mode)</h3>
+      <p style="margin-top: 0.5rem; padding: 12px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 4px;">
+        <strong>🔒 Owner Mode:</strong> Payment warnings are ONLY visible to website owners (not regular visitors).
+        Enable owner mode by adding <code>?owner=true</code> to URL or using button below.
+      </p>
+      <ol style="margin-left: 2rem; margin-top: 0.5rem;">
+        <li>Make sure site is active</li>
+        <li><strong>Enable Owner Mode</strong> using button below</li>
+        <li>Have a pending payment with due date</li>
+        <li>Wait 20 seconds (or refresh this page)</li>
+        <li>You should see a <strong>warning banner at the top</strong> ⚠️</li>
+        <li>Regular visitors (without owner mode) will NOT see the warning</li>
+      </ol>
+      <div style="margin-top: 1.5rem; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+        <button id="toggle-owner-mode-btn" style="background:#8b5cf6;border:none;color:white;padding:12px 18px;border-radius:8px;cursor:pointer;font-weight:700;">
+          🔑 Toggle Owner Mode
+        </button>
+        <span id="owner-mode-status" style="padding:8px 16px; background:#e5e7eb; border-radius:6px; font-weight:600; font-size:14px;">
+          Loading...
+        </span>
+        <button id="test-warning-btn" style="background:#f59e0b;border:none;color:white;padding:12px 18px;border-radius:8px;cursor:pointer;font-weight:700;">Test Warning</button>
+        <button id="test-suspend-btn" style="background:#ef4444;border:none;color:white;padding:12px 18px;border-radius:8px;cursor:pointer;font-weight:700;">Test Suspension</button>
+        <button id="clear-widget-btn" style="background:#6b7280;border:none;color:white;padding:12px 18px;border-radius:8px;cursor:pointer;font-weight:700;">Clear Test UIs</button>
+      </div>
+      
+      <div style="margin-top: 1rem; padding: 12px; background: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 4px;">
+        <strong>💡 Pro Tip:</strong> Owner can access site with <code style="background:#dbeafe;padding:2px 6px;border-radius:3px;">?owner=true</code> in URL:
+        <div style="margin-top:8px;background:#1e293b;color:#fff;padding:8px;border-radius:4px;font-family:monospace;font-size:13px;overflow-x:auto;">
+          http://yourwebsite.com<span style="color:#60a5fa;">?owner=true</span>
+        </div>
+        <p style="margin-top:8px;font-size:13px;color:#1e40af;">Regular visitors without <code style="background:#dbeafe;padding:2px 6px;border-radius:3px;">?owner=true</code> won't see payment warnings.</p>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="card">
+      <h2>Widget Features</h2>
+      <div class="features">
+        <div class="feature">
+          <h3>🚫 Auto Suspension</h3>
+          <p>When admin suspends your site, visitors automatically see a professional suspension page.</p>
+        </div>
+        
+        <div class="feature">
+          <h3>⚠️ Payment Warnings</h3>
+          <p>Top banner appears when payment is due, with amount and "Pay Now" button.</p>
+        </div>
+        
+        <div class="feature">
+          <h3>⚡ Real-Time</h3>
+          <p>Status updates every 20 seconds. Instant suspend/unsuspend without DNS changes.</p>
+        </div>
+        
+        <div class="feature">
+          <h3>🌐 Universal</h3>
+          <p>Works on any website: WordPress, React, HTML, PHP, etc.</p>
+        </div>
+        
+        <div class="feature">
+          <h3>🔒 Secure</h3>
+          <p>Read-only widget. Cannot modify your website or collect data.</p>
+        </div>
+        
+        <div class="feature">
+          <h3>📱 Responsive</h3>
+          <p>Mobile-friendly design. Looks great on all devices.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sample Content -->
+    <div class="card">
+      <h2>Sample Website Content</h2>
+      <p>This is a sample website to demonstrate the widget integration. In a real scenario, this would be your actual website content.</p>
+      
+      <p style="margin-top: 1rem;">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </p>
+
+      <p style="margin-top: 1rem;">
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+    </div>
+
+    <!-- Debug Info -->
+    <div class="card">
+      <h2>Debug Information</h2>
+      <div id="debug-info" style="background: #f9fafb; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.9rem;">
+        <p><strong>Widget Script Loaded:</strong> <span id="widget-loaded">Checking...</span></p>
+        <p><strong>Current Time:</strong> <span id="current-time"></span></p>
+        <p><strong>Page Load Time:</strong> <span id="load-time"></span></p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>&copy; 2025 Demo Website. Testing Widget Integration.</p>
+    <p style="margin-top: 0.5rem; opacity: 0.8;">Powered by Website Management System</p>
+  </div>
+
+  <script>
+    // Debug script
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if widget loaded
+      const widgetLoaded = document.querySelector('script[data-site-id]') !== null;
+      document.getElementById('widget-loaded').textContent = widgetLoaded ? '✅ Yes' : '❌ No';
+      document.getElementById('widget-loaded').style.color = widgetLoaded ? '#10b981' : '#ef4444';
+      
+      // Show current time
+      function updateTime() {
+        document.getElementById('current-time').textContent = new Date().toLocaleTimeString();
+      }
+      updateTime();
+      setInterval(updateTime, 1000);
+      
+      // Show load time
+      document.getElementById('load-time').textContent = new Date().toLocaleString();
+      
+      // Log to console
+      console.log('%c Widget Integration Test Page', 'background: #667eea; color: white; padding: 10px; font-size: 16px; font-weight: bold;');
+      console.log('Widget should check status every 20 seconds');
+      console.log('Open DevTools Network tab to see API calls to /api/public/check-status');
+
+      // Wire test buttons if widget exposes test helpers
+      const testWarningBtn = document.getElementById('test-warning-btn');
+      const testSuspendBtn = document.getElementById('test-suspend-btn');
+      const clearWidgetBtn = document.getElementById('clear-widget-btn');
+      const toggleOwnerBtn = document.getElementById('toggle-owner-mode-btn');
+      const ownerModeStatus = document.getElementById('owner-mode-status');
+      
+      // Check if owner mode is enabled (URL parameter or localStorage)
+      function isOwnerMode() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlOwner = urlParams.get('owner') === 'true';
+        const storageOwner = localStorage.getItem('widget_owner_mode') === 'true';
+        return urlOwner || storageOwner;
+      }
+      
+      // Update owner mode status display
+      function updateOwnerModeStatus() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlOwner = urlParams.get('owner') === 'true';
+        const storageOwner = localStorage.getItem('widget_owner_mode') === 'true';
+        const isOwner = urlOwner || storageOwner;
+        
+        // Show which method is active
+        let statusText = '🔒 Owner Mode: OFF';
+        let bgColor = '#fee2e2';
+        let textColor = '#991b1b';
+        
+        if (urlOwner) {
+          statusText = '🔓 Owner Mode: ON (URL)';
+          bgColor = '#dbeafe';
+          textColor = '#1e40af';
+        } else if (storageOwner) {
+          statusText = '� Owner Mode: ON (Saved)';
+          bgColor = '#dcfce7';
+          textColor = '#166534';
+        }
+        
+        ownerModeStatus.textContent = statusText;
+        ownerModeStatus.style.background = bgColor;
+        ownerModeStatus.style.color = textColor;
+        
+        // Log to console for debugging
+        console.log('Owner Mode Status:', {
+          urlParameter: urlOwner,
+          localStorage: storageOwner,
+          finalStatus: isOwner
+        });
+      }
+      
+      // Initial status
+      updateOwnerModeStatus();
+      
+      // Toggle owner mode
+      toggleOwnerBtn.addEventListener('click', function() {
+        const currentMode = localStorage.getItem('widget_owner_mode') === 'true';
+        const urlParams = new URLSearchParams(window.location.search);
+        const hasUrlParam = urlParams.has('owner');
+        
+        if (currentMode) {
+          // Disable owner mode
+          localStorage.removeItem('widget_owner_mode');
+          
+          // Remove URL parameter if present
+          if (hasUrlParam) {
+            urlParams.delete('owner');
+            const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+            window.history.replaceState({}, '', newUrl);
+          }
+          
+          alert('🔒 Owner Mode DISABLED\n\n✓ localStorage cleared\n✓ URL parameter removed\n\nPayment warnings will NOT be visible.\nPage will refresh to apply changes.');
+          location.reload();
+        } else {
+          // Enable owner mode via localStorage
+          localStorage.setItem('widget_owner_mode', 'true');
+          
+          alert('🔓 Owner Mode ENABLED via localStorage\n\nPayment warnings will now be visible.\n\nTip: You can also use URL: ?owner=true\nPage will refresh to apply changes.');
+          location.reload();
+        }
+      });
+
+      function waitForWidget(cb) {
+        const start = Date.now();
+        (function check() {
+          if (window.SiteWidget && window.SiteWidget.test) return cb(null, window.SiteWidget.test);
+          if (Date.now() - start > 5000) return cb(new Error('Widget test helpers not available'));
+          setTimeout(check, 200);
+        })();
+      }
+
+      waitForWidget(function(err, helpers) {
+        if (err) {
+          console.warn('Widget test helpers not found. Try refreshing after widget script loads.');
+          return;
+        }
+
+        testWarningBtn.addEventListener('click', function() {
+          helpers.showPaymentWarning('499', new Date(Date.now() + 7*24*60*60*1000).toISOString(), 'http://example.com/pay');
+        });
+
+        testSuspendBtn.addEventListener('click', function() {
+          helpers.showSuspendedPage('payment_overdue', 'Your subscription payment is overdue. Restore access by completing payment.', 'http://example.com/pay');
+        });
+
+        clearWidgetBtn.addEventListener('click', function() {
+          helpers.clearPaymentWarning();
+          helpers.clearSuspended();
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

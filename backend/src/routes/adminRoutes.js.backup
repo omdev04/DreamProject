@@ -1,0 +1,133 @@
+/**
+ * Admin Routes for API Key Management
+ * Temporary routes to fix/regenerate API keys
+ */
+
+const express = require('express');
+const router = express.Router();
+const Site = require('../models/Site');
+const { authenticate, authorizeSuperAdmin } = require('../middleware/authMiddleware');
+
+/**
+ * @route   POST /api/admin/regenerate-all-api-keys
+ * @desc    Regenerate API keys for all sites (including those without keys)
+ * @access  Private/Admin
+ */
+router.post('/regenerate-all-api-keys', authenticate, authorizeSuperAdmin, async (req, res) => {
+  try {
+    // Find all sites
+    const allSites = await Site.find({});
+    
+    let regenerated = 0;
+    let alreadyHad = 0;
+    const results = [];
+
+    for (const site of allSites) {
+      const hadKey = !!site.apiKey;
+      
+      // Regenerate API key
+      await site.regenerateApiKey();
+      
+      if (hadKey) {
+        alreadyHad++;
+      } else {
+        regenerated++;
+      }
+
+      results.push({
+        name: site.name,
+        domain: site.domain,
+        apiKey: site.apiKey,
+        hadPreviousKey: hadKey
+      });
+    }
+
+    res.json({
+      success: true,
+      message: `Regenerated ${regenerated} new keys, updated ${alreadyHad} existing keys`,
+      total: allSites.length,
+      results
+    });
+
+  } catch (error) {
+    console.error('Error regenerating API keys:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to regenerate API keys',
+      error: error.message
+    });
+  }
+});
+
+/**
+ * @route   POST /api/admin/regenerate-api-key/:siteId
+ * @desc    Regenerate API key for a specific site
+ * @access  Private/Admin
+ */
+router.post('/regenerate-api-key/:siteId', authenticate, authorizeSuperAdmin, async (req, res) => {
+  try {
+    const site = await Site.findById(req.params.siteId);
+
+    if (!site) {
+      return res.status(404).json({
+        success: false,
+        message: 'Site not found'
+      });
+    }
+
+    const oldKey = site.apiKey;
+    await site.regenerateApiKey();
+
+    res.json({
+      success: true,
+      message: 'API key regenerated successfully',
+      data: {
+        siteName: site.name,
+        domain: site.domain,
+        oldKey: oldKey || 'None',
+        newKey: site.apiKey
+      }
+    });
+
+  } catch (error) {
+    console.error('Error regenerating API key:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to regenerate API key',
+      error: error.message
+    });
+  }
+});
+
+/**
+ * @route   GET /api/admin/sites-without-api-keys
+ * @desc    Get list of sites without API keys
+ * @access  Private/Admin
+ */
+router.get('/sites-without-api-keys', authenticate, authorizeSuperAdmin, async (req, res) => {
+  try {
+    const sitesWithoutKeys = await Site.find({
+      $or: [
+        { apiKey: { $exists: false } },
+        { apiKey: null },
+        { apiKey: '' }
+      ]
+    }).select('name domain customer_id created_at');
+
+    res.json({
+      success: true,
+      count: sitesWithoutKeys.length,
+      data: sitesWithoutKeys
+    });
+
+  } catch (error) {
+    console.error('Error fetching sites without API keys:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch sites',
+      error: error.message
+    });
+  }
+});
+
+module.exports = router;

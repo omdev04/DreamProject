@@ -1,0 +1,39 @@
+<svg width="602" height="602" viewBox="0 0 602 602" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Top left curve (blue to cyan gradient) -->
+  <path d="M194 67C194 30.5492 223.549 1 260 1H362C398.451 1 428 30.5492 428 67V169C428 205.451 398.451 235 362 235H260C223.549 235 194 205.451 194 169V67Z" fill="url(#paint0_linear)"/>
+  
+  <!-- Center circle (yellow to orange gradient) -->
+  <circle cx="337" cy="118" r="60" fill="url(#paint1_linear)"/>
+  
+  <!-- Bottom left curve (light blue) -->
+  <path d="M194 303C194 266.549 223.549 237 260 237H336C372.451 237 402 266.549 402 303V379C402 415.451 372.451 445 336 445H260C223.549 445 194 415.451 194 379V303Z" fill="url(#paint2_linear)"/>
+  
+  <!-- Bottom right curve (blue to purple gradient) -->
+  <path d="M282 237H428C464.451 237 494 266.549 494 303V379C494 415.451 464.451 445 428 445H282C245.549 445 216 415.451 216 379V303C216 266.549 245.549 237 282 237Z" fill="url(#paint3_linear)"/>
+  
+  <defs>
+    <!-- Top curve gradient -->
+    <linearGradient id="paint0_linear" x1="194" y1="118" x2="428" y2="118" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#67B5FF"/>
+      <stop offset="1" stop-color="#6FEDD6"/>
+    </linearGradient>
+    
+    <!-- Circle gradient -->
+    <linearGradient id="paint1_linear" x1="277" y1="118" x2="397" y2="118" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD97D"/>
+      <stop offset="1" stop-color="#FFB347"/>
+    </linearGradient>
+    
+    <!-- Bottom left gradient -->
+    <linearGradient id="paint2_linear" x1="194" y1="341" x2="402" y2="341" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A4D4FF"/>
+      <stop offset="1" stop-color="#87CEEB"/>
+    </linearGradient>
+    
+    <!-- Bottom right gradient -->
+    <linearGradient id="paint3_linear" x1="216" y1="341" x2="494" y2="341" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4169E1"/>
+      <stop offset="1" stop-color="#8B5CF6"/>
+    </linearGradient>
+  </defs>
+</svg>

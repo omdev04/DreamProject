@@ -1,0 +1,27 @@
+{
+  "name": "website-management-system",
+  "version": "1.0.0",
+  "description": "Multi-Website Management System for IT Companies",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
+    "seed": "cd backend && npm run seed",
+    "test": "cd backend && npm test",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f"
+  },
+  "keywords": [
+    "website-management",
+    "uptime-monitoring",
+    "billing-system",
+    "multi-tenant"
+  ],
+  "author": "Your IT Company",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

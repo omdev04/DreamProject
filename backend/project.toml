@@ -1,0 +1,22 @@
+[_]
+schema-version = "0.2"
+
+[io.buildpacks]
+include = [
+  "package.json",
+  "package-lock.json",
+  "src/",
+  "public/",
+  ".env.example"
+]
+
+[[io.buildpacks.group]]
+id = "paketo-buildpacks/nodejs"
+version = "3.2.0"
+
+[io.buildpacks.build.env]
+BP_NODE_VERSION = "18.*"
+BP_NPM_VERSION = "latest"
+
+[[io.buildpacks.build.buildpacks]]
+id = "paketo-buildpacks/nodejs"
