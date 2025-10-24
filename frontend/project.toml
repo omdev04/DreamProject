@@ -15,20 +15,7 @@ include = [
 
 [[io.buildpacks.group]]
 id = "paketo-buildpacks/nodejs"
-version = "3.2.0"
-
-[[io.buildpacks.group]]
-id = "paketo-buildpacks/nginx"
-version = "0.18.0"
 
 [io.buildpacks.build.env]
 BP_NODE_VERSION = "18.*"
 BP_NPM_VERSION = "latest"
-BP_WEB_SERVER = "nginx"
-BP_WEB_SERVER_ROOT = "dist"
-
-[[io.buildpacks.build.buildpacks]]
-id = "paketo-buildpacks/nodejs"
-
-[[io.buildpacks.build.buildpacks]]
-id = "paketo-buildpacks/nginx"
