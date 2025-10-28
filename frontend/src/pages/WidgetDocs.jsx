@@ -458,7 +458,7 @@ const WidgetDocs = () => {
                     paymentDue: true,
                     dueAmount: 5000,
                     dueDate: "2025-10-20T00:00:00.000Z",
-                    paymentUrl: `${import.meta.env.VITE_FRONTEND_URL || 'http://localhost:3000'}/payment/${siteId || 'SITE_ID'}`,
+                    paymentUrl: `${import.meta.env.VITE_FRONTEND_URL || 'http://localhost:9000'}/payment/${siteId || 'SITE_ID'}`,
                     uptime: 99.5
                   }
                 }, null, 2)}</code></pre>
