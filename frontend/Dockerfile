@@ -1,5 +1,5 @@
-# Build stage
-FROM node:18-alpine as build
+# Use official Node.js LTS image
+FROM node:18-alpine
 
 # Set working directory
 WORKDIR /app
@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install ALL dependencies (including devDependencies for build)
+# Install dependencies
 RUN npm ci && npm cache clean --force
 
 # Copy source code
@@ -16,33 +16,20 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Production stage
-FROM nginx:alpine
-
-# Copy built files from build stage
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Copy nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Create non-root user
-RUN addgroup -g 1001 -S nginx_group && \
-    adduser -S nginx_user -u 1001 -G nginx_group && \
-    chown -R nginx_user:nginx_group /usr/share/nginx/html && \
-    chown -R nginx_user:nginx_group /var/cache/nginx && \
-    chown -R nginx_user:nginx_group /var/log/nginx && \
-    touch /var/run/nginx.pid && \
-    chown -R nginx_user:nginx_group /var/run/nginx.pid
+# Create a non-root user for security
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001 && \
+    chown -R nodejs:nodejs /app
 
 # Switch to non-root user
-USER nginx_user
+USER nodejs
 
 # Expose port
-EXPOSE 80
+EXPOSE 3000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:80/ || exit 1
+    CMD node -e "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start application with Vite preview (serves built files)
+CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "3000"]
